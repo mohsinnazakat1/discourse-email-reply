@@ -1,0 +1,23 @@
+# Email Reply Plugin Settings
+
+email_reply_enabled:
+  default: false
+  client: true
+
+email_reply_address:
+  default: ""
+  client: false
+
+email_reply_subject_prefix:
+  default: "Re: "
+  client: false
+
+email_reply_include_quoted_text:
+  default: true
+  client: true
+
+email_reply_quoted_text_length:
+  default: 1000
+  min: 100
+  max: 5000
+  client: false
