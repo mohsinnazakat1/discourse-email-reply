@@ -1,0 +1,31 @@
+.email-reply-button {
+  .d-icon-envelope {
+    color: var(--primary-medium);
+  }
+  
+  &:hover .d-icon-envelope {
+    color: var(--primary);
+  }
+  
+  &.loading {
+    opacity: 0.7;
+    pointer-events: none;
+    
+    .d-icon-spinner {
+      animation: fa-spin 1s infinite linear;
+      margin-left: 0.25em;
+    }
+  }
+}
+
+.post-menu .email-reply-button {
+  margin-right: 0.25em;
+}
+
+@media screen and (max-width: 767px) {
+  .email-reply-button {
+    .email-reply-text {
+      display: none;
+    }
+  }
+}

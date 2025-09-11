@@ -1,0 +1,15 @@
+email_reply:
+  email_reply_enabled:
+    client: true
+    default: true
+    type: bool
+  email_reply_quote_original:
+    client: true
+    default: true
+    type: bool
+  email_reply_max_quote_length:
+    client: false
+    default: 1000
+    type: integer
+    min: 100
+    max: 5000
