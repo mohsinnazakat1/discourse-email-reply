@@ -3,8 +3,8 @@
 # version: 1.0.0
 # authors: Your Name
 # url: https://github.com/yourusername/discourse-email-reply
+require 'yaml'
 
-enabled_site_setting :email_reply_enabled
 
 after_initialize do
   # Load additional files
@@ -72,7 +72,11 @@ end
 PLUGIN_NAME = "discourse_email_reply".freeze
 
 after_initialize do
-  %w{
-    ../config/settings.yml
-  }.each { |path| load File.expand_path(path, __FILE__) }
+  settings_file = File.expand_path("../config/settings.yml", __FILE__)
+  if File.exist?(settings_file)
+    settings = YAML.load_file(settings_file)
+    settings.each do |key, config|
+      SiteSetting.create!(name: key, value: config['default']) unless SiteSetting.where(name: key).exists?
+    end
+  end
 end
