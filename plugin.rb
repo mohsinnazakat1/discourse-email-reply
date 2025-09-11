@@ -67,16 +67,3 @@ after_initialize do
     get "/email-reply/:post_id" => "email_reply#generate_mailto"
   end
 end
-
-# Site settings
-PLUGIN_NAME = "discourse_email_reply".freeze
-
-after_initialize do
-  settings_file = File.expand_path("../config/settings.yml", __FILE__)
-  if File.exist?(settings_file)
-    settings = YAML.load_file(settings_file)
-    settings.each do |key, config|
-      SiteSetting.create!(name: key, value: config['default'], data_type: config['data_type']) unless SiteSetting.where(name: key).exists?
-    end
-  end
-end
