@@ -1,4 +1,6 @@
 class ::EmailReplyController < ::ApplicationController
+  requires_login
+
   def generate_mailto
     post = Post.find(params[:post_id])
     guardian.ensure_can_see!(post)

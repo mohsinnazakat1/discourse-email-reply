@@ -37,8 +37,9 @@ after_initialize do
       end
       
       # Extract plain text content (simplified)
-      body_text = PrettyText.excerpt(self.cooked, 1000, strip_links: true)
-      quoted_body = body_text.split("\n").map { |line| "> #{line}" }.join("\n")
+      quote_length = SiteSetting.email_reply_quoted_text_length
+      body_text = PrettyText.excerpt(self.cooked, quote_length, strip_links: true)
+      quoted_body = SiteSetting.email_reply_include_quoted_text ? body_text.split("\n").map { |line| "> #{line}" }.join("\n") : ""
       
       {
         to: topic.category&.email_in || SiteSetting.reply_by_email_address&.gsub('%{reply_key}', 'noreply'),
@@ -64,6 +65,6 @@ after_initialize do
   
   # Add route for generating mailto links
   Discourse::Application.routes.append do
-    get "/email-reply/:post_id" => "email_reply#generate_mailto"
+    get "/email-reply/:post_id" => "email_reply#generate_mailto", constraints: { post_id: /\d+/ }
   end
 end

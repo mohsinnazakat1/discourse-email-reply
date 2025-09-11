@@ -2,6 +2,4 @@ en:
   js:
     email_reply:
       button_title: "Reply via Email"
-      loading: "Generating email..."
-      error_title: "Email Reply Error"
-      error_message: "Unable to generate email reply. Please try again."
+      reply_via_email: "Reply via Email"

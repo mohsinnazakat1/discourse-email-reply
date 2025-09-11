@@ -1,5 +1,7 @@
 en:
   site_settings:
     email_reply_enabled: "Enable email reply buttons on posts"
-    email_reply_quote_original: "Include quoted text from original post in reply"
-    email_reply_max_quote_length: "Maximum length of quoted text in email replies"
+    email_reply_address: "Default email address for replies"
+    email_reply_subject_prefix: "Prefix for email reply subjects"
+    email_reply_include_quoted_text: "Include quoted text from original post in reply"
+    email_reply_quoted_text_length: "Maximum length of quoted text in email replies"
