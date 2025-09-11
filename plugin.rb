@@ -7,7 +7,7 @@
 enabled_site_setting :email_reply_enabled
 
 after_initialize do
-
+  # Load additional files
   Sentry.init do |config|
     config.dsn = 'https://e5a1464540463ca9c200fe70d33961f2@o4509722905673728.ingest.de.sentry.io/4510000222896208'
     config.breadcrumbs_logger = [:active_support_logger, :http_logger]
@@ -16,7 +16,6 @@ after_initialize do
     # see https://docs.sentry.io/platforms/ruby/data-management/data-collected/ for more info
     config.send_default_pii = true
   end
-  # Load additional files
   load File.expand_path("../app/controllers/email_reply_controller.rb", __FILE__)
   
   # Add email reply functionality to posts
