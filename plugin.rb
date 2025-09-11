@@ -4,6 +4,14 @@
 # authors: Your Name
 # url: https://github.com/yourusername/discourse-email-reply
 
+gem "sentry-ruby", "5.11.0"
+gem "sentry-rails", "5.11.0"
+
+
+require 'sentry-ruby'
+require 'sentry-rails'
+
+
 enabled_site_setting :email_reply_enabled
 
 after_initialize do
