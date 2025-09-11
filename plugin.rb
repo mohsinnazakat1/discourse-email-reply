@@ -8,14 +8,6 @@ require 'yaml'
 
 after_initialize do
   # Load additional files
-  Sentry.init do |config|
-    config.dsn = 'https://e5a1464540463ca9c200fe70d33961f2@o4509722905673728.ingest.de.sentry.io/4510000222896208'
-    config.breadcrumbs_logger = [:active_support_logger, :http_logger]
-
-    # Add data like request headers and IP for users,
-    # see https://docs.sentry.io/platforms/ruby/data-management/data-collected/ for more info
-    config.send_default_pii = true
-  end
   load File.expand_path("../app/controllers/email_reply_controller.rb", __FILE__)
   
   # Add email reply functionality to posts
@@ -37,14 +29,15 @@ after_initialize do
       end
       
       # Extract plain text content (simplified)
-      quote_length = SiteSetting.email_reply_quoted_text_length
+      quote_length = SiteSetting.email_reply_quoted_text_length rescue 1000
       body_text = PrettyText.excerpt(self.cooked, quote_length, strip_links: true)
-      quoted_body = SiteSetting.email_reply_include_quoted_text ? body_text.split("\n").map { |line| "> #{line}" }.join("\n") : ""
+      include_quotes = SiteSetting.email_reply_include_quoted_text rescue true
+      quoted_body = include_quotes ? body_text.split("\n").map { |line| "> #{line}" }.join("\n") : ""
       
       {
-        to: topic.category&.email_in || SiteSetting.reply_by_email_address&.gsub('%{reply_key}', 'noreply'),
+        to: topic.category&.email_in || (SiteSetting.email_reply_address rescue '') || SiteSetting.reply_by_email_address&.gsub('%{reply_key}', 'noreply'),
         cc: [], # Will be populated with original CCs if available
-        subject: "Re: #{topic.title}",
+        subject: "#{SiteSetting.email_reply_subject_prefix rescue 'Re: '}#{topic.title}",
         body: "\n\n#{quoted_body}\n\n",
         in_reply_to: message_id,
         references: references,
