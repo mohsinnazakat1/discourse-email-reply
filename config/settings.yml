@@ -1,15 +1,21 @@
-email_reply:
+plugins:
   email_reply_enabled:
-    client: true
     default: true
+    client: true
     type: bool
+    description:
+      en: "Enable email reply functionality for posts"
   email_reply_quote_original:
-    client: true
     default: true
+    client: true
     type: bool
+    description:
+      en: "Include quoted original post content in email replies"
   email_reply_max_quote_length:
-    client: false
     default: 1000
+    client: false
     type: integer
     min: 100
     max: 5000
+    description:
+      en: "Maximum character length for quoted content in email replies"

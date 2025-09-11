@@ -79,9 +79,3 @@ end
 
 # Site settings
 PLUGIN_NAME = "discourse_email_reply".freeze
-
-after_initialize do
-  %w{
-    ../config/settings.yml
-  }.each { |path| load File.expand_path(path, __FILE__) }
-end
