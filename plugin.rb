@@ -76,7 +76,7 @@ after_initialize do
   if File.exist?(settings_file)
     settings = YAML.load_file(settings_file)
     settings.each do |key, config|
-      SiteSetting.create!(name: key, value: config['default']) unless SiteSetting.where(name: key).exists?
+      SiteSetting.create!(name: key, value: config['default'], data_type: config['data_type']) unless SiteSetting.where(name: key).exists?
     end
   end
 end

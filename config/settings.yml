@@ -1,17 +1,22 @@
 email_reply_enabled:
   default: false
+  data_type: bool
   client: true
 email_reply_address:
   default: ""
+  data_type: string
   client: false
 email_reply_subject_prefix:
   default: "Re: "
+  data_type: string
   client: false
 email_reply_include_quoted_text:
   default: true
+  data_type: bool
   client: true
 email_reply_quoted_text_length:
   default: 1000
+  data_type: integer
   min: 100
   max: 5000
   client: false
